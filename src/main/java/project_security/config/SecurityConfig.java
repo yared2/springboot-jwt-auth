@@ -68,3 +68,4 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 }
+//added for github action to run
