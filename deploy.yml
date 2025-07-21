@@ -1,32 +1,13 @@
-name: Deploy Spring Boot App to AWS EC2
+name: Test Trigger
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-
-      - name: Build with Gradle
-        run: ./gradlew build
-
-      - name: Add SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-
-      - name: Deploy to EC2 and restart app
-        run: |
-          scp -o StrictHostKeyChecking=no build/libs/*.jar ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/springboot/app.jar
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "sudo systemctl restart springboot-app"
+      - name: Say Hello
+        run: echo "Hello from GitHub Actions"
