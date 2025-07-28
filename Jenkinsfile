@@ -2,11 +2,7 @@ pipeline {
     agent any
 
     tools {
-        gradle 'Gradle_8'  // Must match the name in Jenkins tool config
-    }
-
-    environment {
-        // Add any env vars later (e.g., JWT secret, DB credentials)
+        gradle 'Gradle_8'
     }
 
     stages {
@@ -37,7 +33,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deploy logic goes here (e.g., copy JAR to server, Docker run, etc.)'
+                echo 'Deployment step goes here'
             }
         }
     }
