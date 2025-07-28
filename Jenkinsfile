@@ -5,11 +5,12 @@ pipeline {
         gradle 'Gradle_8'
     }
 
-		    stage('Checkout') {
-		    steps {
-		        git branch: 'main', url: 'https://github.com/yared2/springboot-jwt-auth.git'
-		    }
-		}
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/yared2/springboot-jwt-auth.git'
+            }
+        }
 
         stage('Build') {
             steps {
@@ -32,7 +33,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deployment step goes here'
+                echo '✅ Deployment step will go here in the next phase'
             }
         }
     }
