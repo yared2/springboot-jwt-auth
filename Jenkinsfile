@@ -40,10 +40,13 @@ pipeline {
                   '''
             }
         }
-        stage('JWT Test') {
+stage('JWT Test') {
     steps {
         echo '🔐 Testing JWT authentication...'
         sh '''
+            echo "⬇️ Installing jq..."
+            apt-get update && apt-get install -y jq
+
             echo "➡️ Requesting JWT..."
             TOKEN=$(curl -s -X POST http://localhost:8082/auth/login \
               -H "Content-Type: application/json" \
@@ -67,6 +70,7 @@ pipeline {
         '''
     }
 }
+
         
     }
     
