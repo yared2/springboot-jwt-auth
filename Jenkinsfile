@@ -40,7 +40,39 @@ pipeline {
                   '''
             }
         }
+        stage('JWT Test') {
+    steps {
+        echo '🔐 Testing JWT authentication...'
+        sh '''
+            echo "➡️ Requesting JWT..."
+            TOKEN=$(curl -s -X POST http://localhost:8082/auth/login \
+              -H "Content-Type: application/json" \
+              -d '{"username": "admin", "password": "admin123"}' | jq -r '.token')
+
+            echo "🪪 Received token: $TOKEN"
+
+            echo "➡️ Accessing protected endpoint..."
+            RESPONSE=$(curl -s -o response.txt -w "%{http_code}" \
+              -H "Authorization: Bearer $TOKEN" \
+              http://localhost:8082/api/admin)
+
+            if [ "$RESPONSE" = "200" ]; then
+              echo "✅ Access successful"
+              cat response.txt
+            else
+              echo "❌ Access failed with HTTP $RESPONSE"
+              cat response.txt
+              exit 1
+            fi
+        '''
     }
+}
+        
+    }
+    
+    
+    
+    
 
     post {
         success {
