@@ -34,6 +34,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo '✅ Deployment step will go here in the next phase'
+                sh '''
+                	nohup java -jar build/libs/project-one-security-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
+                	sleep 10
+                  '''
             }
         }
     }
